@@ -34,18 +34,18 @@ class TodoCreate(BaseModel):
     )
     
     @validator('title', pre=True)
-    def validate_and_strip_title(cls, v):
-        if isinstance(v, str):
-            v = v.strip()
-            if len(v) == 0:
+    def validate_and_strip_title(cls, v_title):
+        if isinstance(v_title, str):
+            v_title = v_title.strip()
+            if len(v_title) == 0:
                 raise ValueError('Title cannot be empty or only whitespace')
-        return v
+        return v_title
     
     @validator('description', pre=True)
-    def validate_and_strip_description(cls, v):
-        if v is not None and isinstance(v, str):
-            v = v.strip() if v.strip() else None  # Convert empty strings to None
-        return v
+    def validate_and_strip_description(cls, v_desc):
+        if v_desc is not None and isinstance(v_desc, str):
+            v_desc = v_desc.strip() if v_desc.strip() else None  # Convert empty strings to None
+        return v_desc
 
 
 class TodoUpdate(BaseModel):
@@ -207,3 +207,4 @@ def delete_all_todos():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
+
